@@ -1,0 +1,26 @@
+my-fullstack-app/
+├── shared/                  # Shared types and Zod validation schemas
+│   ├── types/
+│   └── schemas/
+├── backend/                 # Node.js + Express + TS
+│   ├── src/
+│   │   ├── config/          # DB connection, env variables
+│   │   ├── controllers/     # Route handlers (req, res)
+│   │   ├── middlewares/     # Auth, error handling, rate limiting
+│   │   ├── models/          # Mongoose schemas
+│   │   ├── routes/          # Express route definitions
+│   │   ├── services/        # Business logic and DB calls
+│   │   └── utils/           # Helpers, custom AppError classes
+│   ├── .env.example
+│   └── package.json
+└── frontend/                # React (Vite) + TS + Tailwind
+    ├── src/
+    │   ├── api/             # Axios/Fetch instances and API calls
+    │   ├── components/      # Atomic design (atoms, molecules, organisms)
+    │   ├── hooks/           # Custom hooks (React Query)
+    │   ├── pages/           # Route components
+    │   ├── store/           # Global state (Zustand or Context)
+    │   └── utils/           # Tailwind class mergers (clsx, tailwind-merge)
+    ├── .env.example
+    ├── tailwind.config.js
+    └── package.json

@@ -1,0 +1,24 @@
+import { Request, Response, NextFunction } from 'express';
+import jwt from 'jsonwebtoken';
+import AppError from '../utils/AppError';
+
+export const requireAuth = (allowedRoles: string[] = ['user', 'admin']) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const token = req.headers.authorization?.split(' ')[1];
+    
+    if (!token) return next(new AppError('Unauthorized', 401));
+
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string, role: string };
+      
+      if (!allowedRoles.includes(decoded.role)) {
+        return next(new AppError('Forbidden: Insufficient permissions', 403));
+      }
+      
+      req.user = decoded; // Attach to request
+      next();
+    } catch (err) {
+      next(new AppError('Invalid token', 401));
+    }
+  };
+};

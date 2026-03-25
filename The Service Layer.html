@@ -1,0 +1,9 @@
+import User from '../models/User';
+import AppError from '../utils/AppError';
+
+export const getUserById = async (userId: string) => {
+  // .lean() optimizes read queries by bypassing Mongoose document hydration
+  const user = await User.findById(userId).select('-passwordHash').lean();
+  if (!user) throw new AppError('User not found', 404);
+  return user;
+};
